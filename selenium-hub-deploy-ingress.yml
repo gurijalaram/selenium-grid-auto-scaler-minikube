@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: selenium-ingress
+  namespace: keda
+  annotations:
+    ingress.citrix.com/frontend-ip: 10.108.113.76
+    ingress.citrix.com/secure-port: "443"
+    spec.ingressClassName: citrix
+spec:
+  rules:
+  - host: selenium-grid
+    http:
+      paths:
+      - backend:
+          service:
+            name: selenium-hub
+            port: 
+              number: 4444
+        path: /
+        pathType: Prefix
